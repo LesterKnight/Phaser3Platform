@@ -1,5 +1,5 @@
 import Phaser from 'phaser'
-import Game from './Game'
+import CoinGame from './CoinGame'
 import Load from './Load'
 
 
@@ -8,7 +8,7 @@ const config = {
     parent: 'platform',
     width: 400,
     height: 240,
-    scene: [Load,Game],
+    scene: [Load, CoinGame],
     physics: {
         default: 'arcade',
         arcade:{
@@ -18,6 +18,9 @@ const config = {
             debug: false
         }
     },
+    render: {
+        antialias: false
+      }
 }
 
 const game = new Phaser.Game(config)

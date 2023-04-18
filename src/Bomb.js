@@ -11,13 +11,22 @@ export default class Bomb{
         bomb.setVelocity(Phaser.Math.Between(-200, 200), 20)
     }
     hitBomb(player, bomb) {
-        //const deltaX = Math.abs(player.x - bomb.x) / ((player.width + bomb.width) / 2) * 100
-        //const deltaY = Math.abs(player.y - bomb.y) / ((player.height + bomb.height) / 2) * 100
-        //if (deltaX >= 20 && deltaY >= 20) {
+        if(checkCollision(player,bomb)){
             this.physics.pause()
             this.player.sprite.setTint(0xff0000)
             this.player.sprite.anims.stop()
             this.gameOver = true
-          //}
+        }
       }
+}
+
+function checkCollision(player, projectile) {
+    const overlapThreshold = 0.3; // Limite mínimo de sobreposição (30%)
+    const overlapRect = Phaser.Geom.Intersects.GetRectangleIntersection(player.getBounds(), projectile.getBounds())
+    const overlapArea = overlapRect.width * overlapRect.height
+    const playerArea = player.width * player.height
+    if (overlapArea >= playerArea * overlapThreshold) {
+        return true
+    }
+    return false
 }
